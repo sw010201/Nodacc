@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="Nodac">Dialog</string>
+    <string-array name="fr">
+        <item>고지혜</item>
+        <item>김선호</item>
+        <item>이하은</item>
+    </string-array>
+
+
+</resources>
