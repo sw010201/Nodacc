@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@layout/activity_main">
+
+    <fragment
+        android:id="@+id/nav_mycalendar"
+        android:label="내 캘린더"
+        tools:layout="@layout/activity_main" />
+
+    <fragment
+        android:id="@+id/nav_friend1"
+        android:label="@string/friend1"
+        tools:layout="@layout/fragment_friend1" />
+
+    <fragment
+        android:id="@+id/nav_friend2"
+        android:label="@string/friend2"
+        tools:layout="@layout/fragment_friend2" />
+
+    <fragment
+        android:id="@+id/nav_friend3"
+        android:label="@string/friend3"
+        tools:layout="@layout/fragment_friend3" />
+    <fragment
+        android:id="@+id/nav_friend4"
+        android:label="@string/friend4"
+        tools:layout="@layout/fragment_friend4" />
+</navigation>

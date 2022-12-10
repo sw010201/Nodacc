@@ -3,8 +3,12 @@ package com.example.myapplication;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -17,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -26,6 +31,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.navigation.NavigationView;
+
+
 public class MainActivity extends AppCompatActivity {
 
     public CalendarView calendarView;
@@ -33,6 +41,17 @@ public class MainActivity extends AppCompatActivity {
     public TextView diaryTextView,textView2;
     public EditText contextEditText, fEditText;
     public ImageView imgv;
+
+    //2022-12-11 프래그먼트
+    private final int Fragment_Friend1 = 1;
+    private final int Fragment_Friend2 = 2;
+    private final int Fragment_Friend3 = 3;
+    private final int Fragment_Friend4 = 4;
+
+    //2022-12-11 툴바
+    Toolbar toolbar;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
 
     //2022-12-06 다이얼로그
     AlertDialog.Builder builder;
@@ -47,14 +66,26 @@ public class MainActivity extends AppCompatActivity {
     private int importance = NotificationManager.IMPORTANCE_HIGH;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //2022-12-11 상단 버튼 만들기
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 왼쪽 상단 버튼 만들기
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24); //왼쪽 상단 버튼 아이콘 지정
+
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        //2022-12-11 프래그먼트 연결
+
         //2022-12-10 알림
-
-
         Button button = findViewById(R.id.button);
         button.setOnClickListener(v->{
 
@@ -63,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     this,
                     0,
                     notificationIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    PendingIntent.FLAG_IMMUTABLE
             );
                 NotificationCompat.Builder builder=new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                         .setSmallIcon(R.drawable.img)
@@ -138,6 +169,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //2022-12-11 네브바 상단 버튼 이벤트
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() { //뒤로가기 했을 때
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     //2022-12-06 다이얼로그
     public void showDialog(){
