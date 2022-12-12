@@ -23,7 +23,6 @@ public class Friend1Fragment extends Fragment {
 
         binding = FragmentFriend1Binding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final ImageView imageView = binding.friend1ImgView;
         return root;
     }
 

@@ -8,7 +8,20 @@
     <fragment
         android:id="@+id/nav_mycalendar"
         android:label="내 캘린더"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main" >
+        <action
+            android:id="@+id/action_nav_mycalendar_to_nav_friend1"
+            app:destination="@id/nav_friend1" />
+        <action
+            android:id="@+id/action_nav_mycalendar_to_nav_friend3"
+            app:destination="@id/nav_friend3" />
+        <action
+            android:id="@+id/action_nav_mycalendar_to_nav_friend4"
+            app:destination="@id/nav_friend4" />
+        <action
+            android:id="@+id/action_nav_mycalendar_to_nav_friend2"
+            app:destination="@id/nav_friend2" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_friend1"
