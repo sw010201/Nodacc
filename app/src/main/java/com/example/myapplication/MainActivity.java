@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -34,18 +36,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.material.navigation.NavigationView;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     public CalendarView calendarView;
-    public Button del_Btn,save_Btn, button;
-    public TextView diaryTextView,textView2;
+    public Button del_Btn, save_Btn, button;
+    public TextView diaryTextView, textView2;
     public EditText contextEditText, fEditText;
     public ImageView imgv;
 
@@ -82,21 +86,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //2022-12-11 상단 버튼 만들기
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 왼쪽 상단 버튼 만들기
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24); //왼쪽 상단 버튼 아이콘 지정
 
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        //2022-12-11 프래그먼트 연결
 
         //2022-12-10 알림
         Button button = findViewById(R.id.button);
-        button.setOnClickListener(v->{
+        button.setOnClickListener(v -> {
 
             Intent notificationIntent = new Intent(this, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -105,52 +108,52 @@ public class MainActivity extends AppCompatActivity {
                     notificationIntent,
                     PendingIntent.FLAG_IMMUTABLE
             );
-                NotificationCompat.Builder builder=new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                        .setSmallIcon(R.drawable.img)
-                        .setContentTitle("Nodac")
-                        .setContentText("약속1")
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setAutoCancel(true)
-                        .setContentIntent(pendingIntent)
-                        .setWhen(System.currentTimeMillis());
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.img)
+                    .setContentTitle("Nodac")
+                    .setContentText("약속1")
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setWhen(System.currentTimeMillis());
 
-                NotificationManager notificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    CharSequence channelName = "노티피케이션 채널";
-                    String description = "해당 채널에 대한 설명";
-                    int importance = NotificationManager.IMPORTANCE_HIGH;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                CharSequence channelName = "노티피케이션 채널";
+                String description = "해당 채널에 대한 설명";
+                int importance = NotificationManager.IMPORTANCE_HIGH;
 
-                    NotificationChannel channel = new NotificationChannel(
-                            NOTIFICATION_CHANNEL_ID,
-                            channelName,
-                            importance
-                    );
-                    channel.setDescription(description);
+                NotificationChannel channel = new NotificationChannel(
+                        NOTIFICATION_CHANNEL_ID,
+                        channelName,
+                        importance
+                );
+                channel.setDescription(description);
 
-                    assert notificationManager != null;
-                    notificationManager.createNotificationChannel(channel);
-                }
+                assert notificationManager != null;
+                notificationManager.createNotificationChannel(channel);
+            }
 
 
-                notificationManager.notify(1234,builder.build());
+            notificationManager.notify(1234, builder.build());
 
         });
 
 
         getSupportActionBar().setTitle("Nodac");
 
-        save_Btn = (Button)findViewById(R.id.save_Btn) ;
-        del_Btn = (Button)findViewById(R.id.del_Btn) ;
-        diaryTextView = (TextView)findViewById(R.id.diaryTextView);
+        save_Btn = (Button) findViewById(R.id.save_Btn);
+        del_Btn = (Button) findViewById(R.id.del_Btn);
+        diaryTextView = (TextView) findViewById(R.id.diaryTextView);
         contextEditText = (EditText) findViewById(R.id.contextEditText);
-        textView2 = (TextView)findViewById(R.id.textView2);
-        imgv = (ImageView)findViewById(R.id.imgv);
+        textView2 = (TextView) findViewById(R.id.textView2);
+        imgv = (ImageView) findViewById(R.id.imgv);
         fEditText = (EditText) findViewById(R.id.fEditText);
 
         //2022-12-06 다이얼로그
-        fEditText=findViewById(R.id.fEditText);
+        fEditText = findViewById(R.id.fEditText);
         fEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        calendarView=findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
@@ -186,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        //2022-12-13 프래그먼트 연결
+        navigationView.setItemIconTintList(null);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -201,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
     //2022-12-11 네브바 상단 버튼 이벤트
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
+        switch (item.getItemId()) {
+            case android.R.id.home: { // 왼쪽 상단 버튼 눌렀을 때
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             }
@@ -220,18 +225,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //2022-12-06 다이얼로그
-    public void showDialog(){
-        fr=getResources().getStringArray(R.array.fr);
-        builder=new AlertDialog.Builder(MainActivity.this);
+    public void showDialog() {
+        fr = getResources().getStringArray(R.array.fr);
+        builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("친구");
         builder.setItems(fr, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                fEditText.append(fr [which]);
+                fEditText.append(fr[which]);
 
-                        }
+            }
         });
-        AlertDialog alertDialog=builder.create();
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
@@ -242,12 +247,12 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
 }

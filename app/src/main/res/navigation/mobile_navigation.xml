@@ -11,35 +11,45 @@
         android:label="내 캘린더"
         tools:layout="@layout/activity_main" >
         <action
+            android:id="@+id/action_nav_mycalendar_to_nav_mycalendar"
+            app:destination="@id/nav_friend1" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_friend1"
+        android:label="@string/friend1"
+        tools:layout="@layout/fragment_friend1">
+        <action
             android:id="@+id/action_nav_mycalendar_to_nav_friend1"
             app:destination="@id/nav_friend1" />
-        <action
-            android:id="@+id/action_nav_mycalendar_to_nav_friend3"
-            app:destination="@id/nav_friend3" />
-        <action
-            android:id="@+id/action_nav_mycalendar_to_nav_friend4"
-            app:destination="@id/nav_friend4" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_friend2"
+        android:label="@string/friend2"
+        tools:layout="@layout/fragment_friend2">
         <action
             android:id="@+id/action_nav_mycalendar_to_nav_friend2"
             app:destination="@id/nav_friend2" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_friend1"
-        android:label="@string/friend1"
-        tools:layout="@layout/fragment_friend1" />
-
-    <fragment
-        android:id="@+id/nav_friend2"
-        android:label="@string/friend2"
-        tools:layout="@layout/fragment_friend2" />
-
-    <fragment
         android:id="@+id/nav_friend3"
         android:label="@string/friend3"
-        tools:layout="@layout/fragment_friend3" />
+        tools:layout="@layout/fragment_friend3">
+        <action
+            android:id="@+id/action_nav_mycalendar_to_nav_friend3"
+            app:destination="@id/nav_friend3"/>
+    </fragment>
+
     <fragment
         android:id="@+id/nav_friend4"
         android:label="@string/friend4"
-        tools:layout="@layout/fragment_friend4" />
+        tools:layout="@layout/fragment_friend4">
+    <action
+        android:id="@+id/action_nav_mycalendar_to_nav_friend4"
+        app:destination="@id/nav_friend4" />
+    </fragment>
+
 </navigation>

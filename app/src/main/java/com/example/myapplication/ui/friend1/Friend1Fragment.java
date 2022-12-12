@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentFriend1Binding;
 
 public class Friend1Fragment extends Fragment {
@@ -22,8 +24,7 @@ public class Friend1Fragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentFriend1Binding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        return root;
+        return inflater.inflate(R.layout.fragment_friend1, container, false);
     }
 
     @Override
