@@ -12,7 +12,9 @@
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    tools:context=".ui.friend1.Friend1Fragment">
+
 
     //2022-12-13 CircleImageView구현
     <de.hdodenhof.circleimageview.CircleImageView
